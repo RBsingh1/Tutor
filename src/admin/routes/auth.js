@@ -2,7 +2,7 @@ require('dotenv').config(); //get env variables
 const { Validator } = require('node-input-validator')
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const auth = require('../middleware/check-token');
 const jwt = require('jsonwebtoken');
 // const config = require('config');

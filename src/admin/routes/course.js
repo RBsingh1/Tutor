@@ -3,7 +3,6 @@ require('dotenv').config(); //get env variables
 const express   = require('express'); 
 const Class      = require('../models/class'); 
 const mongoose  = require('mongoose'); 
-const bcrypt    = require('bcrypt'); 
 const jwt       = require('jsonwebtoken');
 const checkToken= require('../middleware/check-token'); 
 const router    = express.Router(); 

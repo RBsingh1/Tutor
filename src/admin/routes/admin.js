@@ -5,7 +5,7 @@ const Admin = require('../models/admin');
 const Banner = require('../models/banner');
 const router = express.Router();
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const checkToken = require('../middleware/check-token');
 
