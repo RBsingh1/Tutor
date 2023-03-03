@@ -5,4 +5,3 @@ client/build
 client/.eslintcache
 .env
 KEY
-config
