@@ -1,0 +1,56 @@
+const mongoose = require("mongoose")
+const QuizSchema = mongoose.Schema({
+    student_id:{
+        type:mongoose.Types.ObjectId,
+        required:true
+    },
+    qset:{              //Question set objectid
+        type:mongoose.Types.ObjectId,
+        required:true
+    },
+    class_id:{
+        type:mongoose.Types.ObjectId,
+        required:true
+    },
+    subject_id:{
+        type:mongoose.Types.ObjectId,
+        required:true
+    },
+    total_question:{
+        type:Number,
+        required:true
+    },
+    correct:{
+        type:Number,
+        required:true
+    },
+    wrong:{
+        type:Number,
+        required:true
+    },
+    skip:{
+        type:Number,
+        required:true
+    },
+    percentage:{
+        type:Number,
+        required:true
+    },
+    grade:{
+        type:String,
+        required:true
+    },
+    createdAt:{
+        type:Date,
+        default:Date.now()
+    },
+    duration:{
+        type:String,
+        required:true
+    },
+    status:{
+        type:String,
+        required:false
+    }
+})
+module.exports = mongoose.model("quizresult",QuizSchema)

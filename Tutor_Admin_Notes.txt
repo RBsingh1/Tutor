@@ -1,0 +1,57 @@
+
+
+INDERJEET DATABASE = #DATABASE_URL ="mongodb+srv://user:user@cluster0.twzottr.mongodb.net/Tutor1?retryWrites=true&w=majority"
+
+
+
+_id
+633ffa05f90ab0dfbbe098e1
+
+ObjectId
+chap_id
+5
+
+Int32
+student_board
+bseb
+
+String
+chapter_title
+CHAPTER-5 ( समांतर श्रेढ़ीयां )
+
+String
+admission_id
+5
+
+Int32
+subject_id
+1
+
+Int32
+topic_id
+0
+
+Int32
+chapter_description
+
+String
+chapter_document
+
+String
+chapter_video
+
+String
+language_id
+h
+
+String
+chapter_status
+0
+
+String
+added_at
+2020-07-07 18:51:22
+
+String
+modified_at
+2022-05-02 08:27:35
