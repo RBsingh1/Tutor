@@ -452,12 +452,12 @@ router.post('/student_objectid', checktoken, async (req, res) => {
     try {
         const stu = await Student.findById({ _id })
         var url = (stu.student_photo).split('/');
-        // console.log(url)
+        console.log(url)
         var blankurl = '';
-        if (url[0] == 'http:') {
+        if (url[0] == 'https:') {
             blankurl = stu.student_photo;
         } else {
-            blankurl = "https://tutoradminapi2.onrender.com/" + stu.student_photo;
+            blankurl = "https://tutoradminapi2.onrender.com/uploads/" + stu.student_photo;
 
         }
         var details = {
