@@ -370,7 +370,7 @@ router.post('/student_update', checktoken, upload, async (req, res) => {
                 father_name: req.body.father_name,
                 roll_no: req.body.roll_no,
                 date_of_admission: req.body.date_of_admission,
-                student_photo: "https://tutoradminapi.onrender2.com/" + req.file.path.replace(/\\/g, '/'),
+                student_photo: "https://tutoradminapi2.onrender.com/" + req.file.path.replace(/\\/g, '/'),
             },
         })
         console.log(Details)
