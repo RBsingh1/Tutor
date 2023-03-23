@@ -457,7 +457,7 @@ router.post('/student_objectid', checktoken, async (req, res) => {
         if (url[0] == 'http:') {
             blankurl = stu.student_photo;
         } else {
-            blankurl = "https://tutoradminapi2.onrender.com/uploads/" + stu.student_photo;
+            blankurl = "https://tutoradminapi2.onrender.com/" + stu.student_photo;
 
         }
         var details = {
