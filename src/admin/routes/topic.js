@@ -95,7 +95,7 @@ router.post('/topic/add', checkToken, upload, async (req, res) => {
             topic_name: req.body.topic_name,
             chapter_id: req.body.chapter_id,
             subject_id: req.body.subject_id,
-            upload_pdf: "http://18.191.154.95:3000/" + req.file.path.replace(/\\/g, '/'),
+            upload_pdf: "https://tutoradminapi.onrender.com/" + req.file.path.replace(/\\/g, '/'),
             status: req.body.status
         })
         data
@@ -129,7 +129,7 @@ router.post("/topic/video/:_id", checkToken, multipleUpload, async (req, res) =>
         // return res.status(200).json({ success: true, msg: "Your Video is null" })
 
     } else {
-        upload_video = "http:/18.191.154.95:3000/" + req.file.path.replace(/\\/g, '/')
+        upload_video = "https://tutoradminapi.onrender.com/" + req.file.path.replace(/\\/g, '/')
     }
     try {
         const topic = await Topic.findByIdAndUpdate(_id, { upload_video: upload_video })
