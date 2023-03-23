@@ -94,7 +94,7 @@ router.post('/sample/add', checkToken, upload, async (req, res) => {
             exam_seating: req.body.exam_seating,
             starting_time: req.body.starting_time,
             time_duration: req.body.time_duration,
-            upload_document: "http://18.191.154.95:3000/" + req.file.path.replace(/\\/g, '/'),
+            upload_document: "https://tutoradminapi.onrender.com/" + req.file.path.replace(/\\/g, '/'),
             type: req.body.type,
             status: req.body.status,
             addedat: new Date()
