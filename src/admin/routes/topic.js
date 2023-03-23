@@ -95,6 +95,7 @@ router.post('/topic/add', checkToken, upload, async (req, res) => {
             topic_name: req.body.topic_name,
             chapter_id: req.body.chapter_id,
             subject_id: req.body.subject_id,
+            upload_video: req.body.upload_video,
             upload_pdf: "https://tutoradminapi2.onrender.com/" + req.file.path.replace(/\\/g, '/'),
             status: req.body.status
         })
@@ -177,7 +178,7 @@ router.patch('/topic/update/:_id', checkToken, upload, async (req, res, next) =>
                 topic_name: req.body.topic_name,
                 chapter_id: req.body.chapter_id,
                 subject_id: req.body.subject_id,
-                // upload_video: upload_video,
+                upload_video: upload_video,
                 upload_pdf: upload_pdf,
                 status: req.body.status
             }
