@@ -463,7 +463,7 @@ router.get("/student/details", checktoken, async (req, res) => {
         
     }
     DataArr.push(detaildata);
-return res.status(200).json({ success: true, data: DataArr })
+return res.status(200).json({ success: true, data: DataArr[0] })
     } catch (err) {
     return res.status(401).json({ success: false, msg: err.message })
 }
