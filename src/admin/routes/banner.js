@@ -48,7 +48,7 @@ router.post('/banner/add', auth, upload, async (req, res) => {
         const data = new banner({
             banner_title: req.body.banner_title,
             banner_status: req.body.banner_status,
-            banner_image: "https://tutoradminapi2.onrender.com/"+req.file.path,
+            banner_image: process.env.Domain +req.file.path,
             addedat: new Date()
         })
         data
@@ -79,7 +79,7 @@ router.patch('/banner/update/:_id', auth, upload, async (req, res, next) => {
     if (req.file == '' || req.file == undefined) {
         banner_image = req.body.banner_image
     }else{
-        banner_image = "https://tutoradminapi2.onrender.com/"+req.file.path
+        banner_image = process.env.Domain +req.file.path
     }
     try {
         await banner.findByIdAndUpdate({ _id }, {

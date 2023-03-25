@@ -94,7 +94,7 @@ router.post('/sample/add', checkToken, upload, async (req, res) => {
             exam_seating: req.body.exam_seating,
             starting_time: req.body.starting_time,
             time_duration: req.body.time_duration,
-            upload_document: "https://tutoradminapi2.onrender.com/" + req.file.path.replace(/\\/g, '/'),
+            upload_document: process.env.Domain + req.file.path.replace(/\\/g, '/'),
             type: req.body.type,
             status: req.body.status,
             addedat: new Date()
@@ -127,7 +127,7 @@ router.patch('/sample/update/:_id', checkToken, upload, async (req, res, next) =
     if (req.file == '' || req.file == undefined) {
         upload_document = req.body.upload_document
     } else {
-        upload_document = "https://tutoradminapi2.onrender.com/" + req.file.path.replace(/\\/g, '/')
+        upload_document = process.env.Domain + req.file.path.replace(/\\/g, '/')
     }
     try {
         await Sample.findByIdAndUpdate({ _id }, {

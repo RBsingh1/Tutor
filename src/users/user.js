@@ -370,7 +370,7 @@ router.post('/student_update', checktoken, upload, async (req, res) => {
                 father_name: req.body.father_name,
                 roll_no: req.body.roll_no,
                 date_of_admission: req.body.date_of_admission,
-                student_photo: "https://tutoradminapi2.onrender.com/" + req.file.path.replace(/\\/g, '/'),
+                student_photo: process.env.Domain + req.file.path.replace(/\\/g, '/'),
             },
         })
         console.log(Details)
@@ -457,7 +457,7 @@ router.post('/student_objectid', checktoken, async (req, res) => {
         if (url[0] == 'https:') {
             blankurl = stu.student_photo;
         } else {
-            blankurl = "https://tutoradminapi2.onrender.com/uploads/" + stu.student_photo;
+            blankurl = process.env.Domain  + stu.student_photo;
 
         }
         var details = {
@@ -493,6 +493,39 @@ router.post('/student_objectid', checktoken, async (req, res) => {
         res.status(401).json({ success: false, message: 'Please enter a valid ID' })
     }
 })
+
+/** This Function is use For Replace Specific Part Of Specific field in Mongodb */
+// router.get('/url', async (req, res) => {
+//     try {
+//         // const newurl = "uploads/1594203623_thumb.jpg";
+//         // const _id = "63d4bc53fce0769e9925eca8";
+//         const updateData ='';
+//         let student = '';
+//             let url = ''
+//             const stu = await Student.find({"student_photo": { $regex: /^http/i }});
+//             for(i = 0; i < stu.length; i++) {
+//                 element = stu[i]
+//                 // console.log(element)
+//             student = element.student_photo;
+//                  url = (element.student_photo).split('/');
+//                  const spliced = url.splice(url.length - 2,2)
+//                  const newurl = spliced.join('/')
+//                 //  element.student_photo = newurl
+//                 //  console.log(url)
+//                 //  console.log(newurl)
+                
+                
+//                 // console.log(element._id)
+//                  updateData =await Student.findByIdAndUpdate({ _id:element._id} ,{ 
+//                     student_photo: newurl
+//                 })
+//             }
+//             return res.status(200).json({success:true, msg:updateData, })
+//     } catch (err) {
+//         return res.status(401).json({ success: false, msg: err.msg })
+//     }
+// })
+
 
 
 // Old api for student_subject but important for future
@@ -545,18 +578,18 @@ router.get('/student_subject', checktoken, async (req, res) => {
     const class_id = mongoose.Types.ObjectId(req.user.class_id);
 
     try {
-        
+
         let matchobj = {}
         if (req.query.subject_id) {
             matchobj['subject_id'] = mongoose.Types.ObjectId(req.query.subject_id)
         }
         const result = await questionSet.aggregate([
-            
+
             {
                 $match: { ...matchobj, class_id, qps_status: 'active' }
             },
             {
-                    $group: { _id:{subject_id:"$subject_id"} }
+                $group: { _id: { subject_id: "$subject_id" } }
             },
             {
                 $lookup: {
@@ -567,7 +600,7 @@ router.get('/student_subject', checktoken, async (req, res) => {
                 }
             },
             { $unwind: "$subject" },
-           
+
             {
                 $project: {
                     // _id: "$subject._id",
@@ -576,12 +609,12 @@ router.get('/student_subject', checktoken, async (req, res) => {
                     date: "$subject.date",
                     image: "$subject.image",
                     subject_name: "$subject.name",
-                    subject_id:"$subject._id" ,
+                    subject_id: "$subject._id",
                 }
             }
 
 
-        ]).sort({_id:"-1"})
+        ]).sort({ _id: "-1" })
         res.status(200).json({ success: true, count: result.length, data: result })
 
     } catch (err) {
@@ -1034,7 +1067,7 @@ router.get('/student/subjects/:class_id', checktoken, async (req, res) => {
 
 /**chapter topic get by subject_id start */
 router.post('/chapter/topic', checktoken, async (req, res) => {
-    const subject_id = mongoose.Types.ObjectId( req.body.subject_id )
+    const subject_id = mongoose.Types.ObjectId(req.body.subject_id)
     // const subject_id = req.body.subject_id
     try {
         let matchobj = {}
@@ -1079,7 +1112,7 @@ router.post('/chapter/topic', checktoken, async (req, res) => {
             //     }
             //}
 
-        ]).sort({_id:-1})
+        ]).sort({ _id: -1 })
         // var resultArr = [];
         // const Allchapter = await Chapter.find({ subject_id });
         // // console.log(Allchapter)
