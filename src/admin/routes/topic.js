@@ -96,7 +96,7 @@ router.post('/topic/add', checkToken, upload, async (req, res) => {
             chapter_id: req.body.chapter_id,
             subject_id: req.body.subject_id,
             upload_video: req.body.upload_video,
-            upload_pdf: process.env.Domain  + req.file.path.replace(/\\/g, '/'),
+            upload_pdf: "https://tutoradminapi2.onrender.com/" + req.file.path.replace(/\\/g, '/'),
             status: req.body.status
         })
         data

@@ -425,9 +425,18 @@ router.get("/student/details", checktoken, async (req, res) => {
     const _id = req.user._id
     var DataArr = []
     let detaildata = {}
+    
     try {
         const detail = await Student.findById(_id)
-        // console.log(detail)
+        var url = (detail.student_photo).split('/');
+        console.log(url)
+        var blankurl = '';
+        if (url[0] == 'https:') {
+            blankurl = detail.student_photo;
+        } else {
+            blankurl = "https://tutoradminapi2.onrender.com/" + detail.student_photo;
+
+        }
         for (const [_, value] of Object.entries(detail)) {
             if(detail != '' || detail !=null || detail != undefined){
              detaildata = {
@@ -456,7 +465,7 @@ router.get("/student/details", checktoken, async (req, res) => {
                 status: detail.status,
                 added_at: detail.added_at,
                 modified_at: detail.modified_at,
-                student_photo:"https://tutoradminapi2.onrender.com/" + detail.student_photo
+                student_photo:blankurl 
             
             }
         }
