@@ -421,14 +421,52 @@ router.post('/student_update_data', checktoken, async (req, res) => {
 
 
 //get student personal details
-router.get("/student/details/:_id", checktoken, async (req, res) => {
-    const _id = req.params._id
+router.get("/student/details", checktoken, async (req, res) => {
+    const _id = req.user._id
+    var DataArr = []
+    let detaildata = {}
     try {
-        const detail = await Student.findById({ _id })
-        return res.status(200).json({ success: true, data: detail })
-    } catch (err) {
-        return res.status(401).json({ success: false, msg: err.message })
+        const detail = await Student.findById(_id)
+        // console.log(detail)
+        for (const [_, value] of Object.entries(detail)) {
+            if(detail != '' || detail !=null || detail != undefined){
+             detaildata = {
+                board: detail.board,
+                admin_id: detail.admin_id,
+                class_id: detail.class_id,
+                select_batch_time: detail.select_batch_time,
+                name: detail.name,
+                father_name: detail.father_name,
+                mother_name: detail.mother_name,
+                email: detail.email,
+                password: detail.password,
+                sex: detail.sex,
+                mobile_number: detail.mobile_number,
+                contact_guardian_no: detail.contact_guardian_no,
+                date_of_birth: detail.date_of_birth,
+                address: detail.address,
+                payment_type: detail.payment_type,
+                fee_amount: detail.fee_amount,
+                payment_mode: detail.payment_mode,
+                roll_no: detail.roll_no,
+                notification_count: detail.notification_count,
+                session: detail.session,
+                exam_seating: detail.exam_seating,
+                login_code: detail.login_code,
+                status: detail.status,
+                added_at: detail.added_at,
+                modified_at: detail.modified_at,
+                student_photo:"https://tutoradminapi2.onrender.com/" + detail.student_photo
+            
+            }
+        }
+        
     }
+    DataArr.push(detaildata);
+return res.status(200).json({ success: true, data: DataArr })
+    } catch (err) {
+    return res.status(401).json({ success: false, msg: err.message })
+}
 })
 
 
@@ -457,7 +495,7 @@ router.post('/student_objectid', checktoken, async (req, res) => {
         if (url[0] == 'https:') {
             blankurl = stu.student_photo;
         } else {
-            blankurl = "https://tutoradminapi2.onrender.com/"  + stu.student_photo;
+            blankurl = "https://tutoradminapi2.onrender.com/" + stu.student_photo;
 
         }
         var details = {
@@ -513,8 +551,8 @@ router.post('/student_objectid', checktoken, async (req, res) => {
 //                 //  element.student_photo = newurl
 //                 //  console.log(url)
 //                 //  console.log(newurl)
-                
-                
+
+
 //                 // console.log(element._id)
 //                  updateData =await Student.findByIdAndUpdate({ _id:element._id} ,{ 
 //                     student_photo: newurl
