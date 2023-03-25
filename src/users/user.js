@@ -370,7 +370,7 @@ router.post('/student_update', checktoken, upload, async (req, res) => {
                 father_name: req.body.father_name,
                 roll_no: req.body.roll_no,
                 date_of_admission: req.body.date_of_admission,
-                student_photo: process.env.Domain + req.file.path.replace(/\\/g, '/'),
+                student_photo: "https://tutoradminapi2.onrender.com/" + req.file.path.replace(/\\/g, '/'),
             },
         })
         console.log(Details)
@@ -457,7 +457,7 @@ router.post('/student_objectid', checktoken, async (req, res) => {
         if (url[0] == 'https:') {
             blankurl = stu.student_photo;
         } else {
-            blankurl = process.env.Domain  + stu.student_photo;
+            blankurl = "https://tutoradminapi2.onrender.com/"  + stu.student_photo;
 
         }
         var details = {
