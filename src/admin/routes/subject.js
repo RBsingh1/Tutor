@@ -113,8 +113,8 @@ router.post('/chapter/add', checkToken, async (req, res) => {
             }        
         })
       }  
-      res.status(200).json({ success: true, message: "Data Stored", message: "New Chapter Added" })
-        })
+    })
+    res.status(200).json({ success: true, message: "Data Stored", message: "New Chapter Added" })
     }
     catch (error) {
         res.status(500).json({ success: false, message: error.message })
