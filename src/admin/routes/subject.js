@@ -77,7 +77,7 @@ router.post('/chapter/add', checkToken, async (req, res) => {
     const class_id = req.body.class_id
 
     try {
-        const studentList =await Student.find({class_id, status:'active'}).select('class_id');
+        const studentList =await Student.find({class_id, status:'active'}).select('_id');
 
         const data = new Chapter({
             class_id: req.body.class_id,
@@ -89,7 +89,6 @@ router.post('/chapter/add', checkToken, async (req, res) => {
             status: req.body.status,
         })
         data.save().then(result => {
-            for (const [_, value] of Object.entries(studentList)) {
                 const addNotifi = new Notification({
                     notification_title:result.chapter_title ,
                     notification_description: "New Chapter Added " + result.chapter_title,
@@ -106,14 +105,14 @@ router.post('/chapter/add', checkToken, async (req, res) => {
                         });
                         dataLog.save();
                 if (addNotifi)
-                    var noti = Student.findOneAndUpdate({ class_id: value.class_id, status: "active" }, { $inc: { notification_count: 1 } },
+                    var noti = Student.findOneAndUpdate({ _id: value._id, status: "active" }, { $inc: { notification_count: 1 } },
                         function (err, res) {
                             console.log(err)
                         });
             }        
         })
       }  
-    })
+    )
     res.status(200).json({ success: true, message: "Data Stored", message: "New Chapter Added" })
     }
     catch (error) {
