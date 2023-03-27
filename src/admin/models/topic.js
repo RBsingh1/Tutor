@@ -31,3 +31,4 @@ const topicSchema = mongoose.Schema({
 });
 
 module.exports = mongoose.model('topic', topicSchema);
+

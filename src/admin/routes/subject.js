@@ -1,5 +1,8 @@
 const express = require('express');
 const Subject = require('../models/subject');
+const Student = require('../models/student')
+const Notification = require('../models/notify')
+const NotificationLog = require('../models/notify-log')
 const Class = require('../models/class');
 const Department = require('../models/department');
 const Chapter = require('../models/chapter');
@@ -71,7 +74,11 @@ router.get('/chapter/list', checkToken, async (req, res) => {
 
 // ** Add subject** //
 router.post('/chapter/add', checkToken, async (req, res) => {
+    const class_id = req.body.class_id
+
     try {
+        const studentList =await Student.find({class_id, status:'active'}).select('class_id');
+
         const data = new Chapter({
             class_id: req.body.class_id,
             subject_id: req.body.subject_id,
@@ -81,20 +88,33 @@ router.post('/chapter/add', checkToken, async (req, res) => {
             description: req.body.description,
             status: req.body.status,
         })
-        data
-            .save()
-            .then(result => {
-                res.status(200).json({
-                    success: true,
-                    message: 'data stored!'
-                });
-            })
-            .catch(err => {
-                res.status(500).json({
-                    success: false,
-                    error: err
-                });
-            })
+        data.save().then(result => {
+            for (const [_, value] of Object.entries(studentList)) {
+                const addNotifi = new Notification({
+                    notification_title: "New Chapter Added",
+                    notification_description: result.chapter_title,
+                    class_id: result.class_id,
+                    sent_on: "Notification Only",
+                    status: result.status,
+                    addedat: new Date()
+                })
+                addNotifi.save().then(result => {
+                    for (const [_, value] of Object.entries(studentList)) {
+                        const dataLog = new NotificationLog({
+                            notify_id : result._id,
+                            student_id   : value._id
+                        });
+                        dataLog.save();
+                if (addNotifi)
+                    var noti = Student.findOneAndUpdate({ class_id: value.class_id, status: "active" }, { $inc: { notification_count: 1 } },
+                        function (err, res) {
+                            console.log(err)
+                        });
+            }        
+        })
+      }  
+      res.status(200).json({ success: true, message: "Data Stored", message: "New Chapter Added" })
+        })
     }
     catch (error) {
         res.status(500).json({ success: false, message: error.message })
