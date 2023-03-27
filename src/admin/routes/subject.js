@@ -91,8 +91,8 @@ router.post('/chapter/add', checkToken, async (req, res) => {
         data.save().then(result => {
             for (const [_, value] of Object.entries(studentList)) {
                 const addNotifi = new Notification({
-                    notification_title: "New Chapter Added",
-                    notification_description: result.chapter_title,
+                    notification_title:result.chapter_title ,
+                    notification_description: "New Chapter Added " + result.chapter_title,
                     class_id: result.class_id,
                     sent_on: "Notification Only",
                     status: result.status,
